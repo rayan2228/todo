@@ -13,7 +13,7 @@ let editId = null;
 const addEventListeners = () => {
     addBtnElm.addEventListener('click', addTask);
     inputElm.addEventListener('input', inputChanges)
-    // searchElm.addEventListener('input', searchTask);
+    searchElm.addEventListener('input', searchTask);
 }
 
 const inputChanges = () => {
@@ -40,7 +40,8 @@ const addTask = () => {
 
 
 
-const renderTasks = (r) => {
+const renderTasks = (filteredTasks) => {
+    tasks = filteredTasks || tasks;
     taskListElm.innerHTML = '';
     tasks.map((task) => {
         const taskElm = document.createElement('li');
@@ -91,6 +92,14 @@ const editTask = (id) => {
     renderTasks();
 }
 
+const searchTask = () => {
+    const search = searchElm.value.toLowerCase();
+    let filteredTasks = tasks.filter((task) => task.task.toLowerCase().includes(search));
+    if (search === '') {
+        filteredTasks = null;
+    }
+    renderTasks(filteredTasks);
+}
 
 
 renderTasks()
