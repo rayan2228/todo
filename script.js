@@ -7,11 +7,14 @@ const deleteBtnElm = document.querySelector('.delete-btn');
 const completeBtnElm = document.querySelector('.complete-btn');
 const undoBtnElm = document.querySelector('.undo-btn');
 const messageElm = document.querySelector('.message');
+const updateBtnElm = document.querySelector('.update-btn');
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let editId = null;
 const addEventListeners = () => {
-    addBtnElm.addEventListener('click', addTask);
+    // addBtnElm.addEventListener('click', addTask);
     inputElm.addEventListener('input', inputChanges)
+    updateBtnElm.addEventListener('click', updateTask);
     // searchElm.addEventListener('input', searchTask);
 }
 
@@ -28,8 +31,8 @@ const addTask = () => {
     }
     tasks.push({ id, task, completed: false });
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    renderTasks();
     inputElm.value = '';
+    renderTasks();
 }
 
 
@@ -64,10 +67,30 @@ const completeTask = (id) => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
 }
+
 const undoTask = (id) => {
     const index = tasks.findIndex((task) => task.id === id);
     tasks[index].completed = false;
+    editId = index;
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+}
+
+const editTask = (id) => {
+    const index = tasks.findIndex((task) => task.id === id);
+    inputElm.value = tasks[index].task;
+    editId = index;
+    renderTasks();
+}
+
+const updateTask = () => {
+    if (inputElm.value === '') {
+        messageElm.textContent = 'Please enter a task';
+        return;
+    }
+    tasks[editId].task = inputElm.value;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    inputElm.value = '';
     renderTasks();
 }
 
