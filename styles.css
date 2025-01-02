@@ -82,14 +82,7 @@ main {
     background-color: #059669;
 }
 
-.update-btn:hover {
-    background-color: #4826f4;
-}
 
-.update-btn {
-    background-color: #5c69f5;
-    color: #ffffff;
-}
 
 
 .task-list {
