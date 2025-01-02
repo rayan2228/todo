@@ -61,10 +61,15 @@ const deleteTask = (id) => {
 const completeTask = (id) => {
     const index = tasks.findIndex((task) => task.id === id);
     tasks[index].completed = true;
-    console.log(tasks);
-
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
 }
+const undoTask = (id) => {
+    const index = tasks.findIndex((task) => task.id === id);
+    tasks[index].completed = false;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+}
+
 renderTasks()
 addEventListeners();
