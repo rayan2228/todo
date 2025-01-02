@@ -36,16 +36,16 @@ const addTask = () => {
 
 const renderTasks = (r) => {
     taskListElm.innerHTML = '';
-    tasks.map((task, index) => {
+    tasks.map((task) => {
         const taskElm = document.createElement('li');
         taskElm.classList.add('task');
         taskElm.innerHTML = `
             <span class="task-name" >${task.task}</span>
              <div class="task-actions">
-            <button class="edit-btn" onclick="editTask(${index})">Edit</button>
-            <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
-            <button class="complete-btn" onclick="completeTask(${index})">Complete</button>
-            <button class="undo-btn" onclick="undoTask(${index})">Undo</button>
+            <button class="edit-btn" onclick="editTask(${task.id})">Edit</button>
+            <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
+            <button class="complete-btn" onclick="completeTask(${task.id})">Complete</button>
+            <button class="undo-btn" onclick="undoTask(${task.id})">Undo</button>
             </div>
         `;
         taskListElm.appendChild(taskElm);
@@ -53,6 +53,11 @@ const renderTasks = (r) => {
     messageElm.textContent = tasks.length === 0 ? 'No tasks available' : "";
 }
 
+const deleteTask = (id) => {
+    tasks = tasks.filter((task) => task.id !== id);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+}
 
 renderTasks()
 addEventListeners();
