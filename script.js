@@ -80,7 +80,6 @@ const completeTask = (id) => {
 const undoTask = (id) => {
     const index = tasks.findIndex((task) => task.id === id);
     tasks[index].completed = false;
-    editId = index;
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
 }
