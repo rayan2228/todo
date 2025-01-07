@@ -46,11 +46,11 @@ const addTask = () => {
 const renderTasks = (filteredTasks) => {
     let finalTasks = filteredTasks || tasks;
     taskListElm.innerHTML = '';
-    finalTasks.map((task,index) => {
+    finalTasks.map((task, index) => {
         const taskElm = document.createElement('li');
         taskElm.classList.add('task');
         taskElm.innerHTML = `
-            <span class="task-name ${task.completed ? 'completed' : ''}" >${index +1}  ${task.task}</span>
+            <span class="task-name ${task.completed ? 'completed' : ''}" >${index + 1}  ${task.task}</span>
              <div class="task-actions">
             <button class="edit-btn" onclick="editTask(${task.id})">Edit</button>
             <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
@@ -76,7 +76,7 @@ const deleteTask = (id) => {
 const completeTask = (id) => {
     const index = tasks.findIndex((task) => task.id === id);
     console.log(index);
-    
+
     tasks[index].completed = true;
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
@@ -85,7 +85,7 @@ const completeTask = (id) => {
 const undoTask = (id) => {
     const index = tasks.findIndex((task) => task.id === id);
     console.log(index);
-    
+
     tasks[index].completed = false;
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
