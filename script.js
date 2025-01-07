@@ -41,9 +41,9 @@ const addTask = () => {
 
 
 const renderTasks = (filteredTasks) => {
-    tasks = filteredTasks || tasks;
+    let finalTasks = filteredTasks || tasks;
     taskListElm.innerHTML = '';
-    tasks.map((task) => {
+    finalTasks.map((task) => {
         const taskElm = document.createElement('li');
         taskElm.classList.add('task');
         taskElm.innerHTML = `
@@ -96,7 +96,7 @@ const searchTask = () => {
     const search = searchElm.value.toLowerCase();
     let filteredTasks = tasks.filter((task) => task.task.toLowerCase().includes(search));
     if (search === '') {
-        filteredTasks = null;
+        filteredTasks = tasks;
     }
     renderTasks(filteredTasks);
 }
